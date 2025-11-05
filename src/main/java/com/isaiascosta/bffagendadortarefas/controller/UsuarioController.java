@@ -8,6 +8,7 @@ import com.isaiascosta.bffagendadortarefas.business.dto.in.UsuarioDTORequest;
 import com.isaiascosta.bffagendadortarefas.business.dto.out.EnderecoDTOResponse;
 import com.isaiascosta.bffagendadortarefas.business.dto.out.TelefoneDTOResponse;
 import com.isaiascosta.bffagendadortarefas.business.dto.out.UsuarioDTOResponse;
+import com.isaiascosta.bffagendadortarefas.business.dto.out.ViaCepDTOResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -53,7 +54,7 @@ public class UsuarioController {
    @ApiResponse(responseCode = "500", description = "Erro no servidor ")
    ResponseEntity<UsuarioDTOResponse> buscarUsuarioPorEmail(@RequestParam("email") String email,
                                                             @RequestHeader(name = "Authorization", required = false)
-                                                    String token) {
+                                                            String token) {
       return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email, token));
    }
 //
@@ -93,8 +94,8 @@ public class UsuarioController {
    @ApiResponse(responseCode = "404", description = "Usuario não encontrado")
    @ApiResponse(responseCode = "500", description = "Erro no servidor ")
    public ResponseEntity<UsuarioDTOResponse> atualizarUsuarioPorEmail(@RequestBody UsuarioDTORequest dto,
-                                                                     @RequestHeader(name = "Authorization", required = false)
-                                                              String token) {
+                                                                      @RequestHeader(name = "Authorization", required = false)
+                                                                      String token) {
       return ResponseEntity.ok(usuarioService.atualizarUsuarioPorEmail(token, dto));
    }
 
@@ -106,7 +107,7 @@ public class UsuarioController {
    public ResponseEntity<EnderecoDTOResponse> atualizarEnderecoPorId(@RequestBody EnderecoDTORequest enderecoDTO,
                                                                      @RequestParam("id") Long id,
                                                                      @RequestHeader(name = "Authorization", required = false)
-                                                             String token) {
+                                                                     String token) {
       return ResponseEntity.ok(usuarioService.atualizarEnderecoPorId(id, enderecoDTO, token));
    }
 
@@ -118,7 +119,16 @@ public class UsuarioController {
    public ResponseEntity<TelefoneDTOResponse> atualizaTelefonePorID(@RequestBody TelefoneDTORequest telefoneDTO,
                                                                     @RequestParam("id") Long id,
                                                                     @RequestHeader(name = "Authorization", required = false)
-                                                            String token) {
+                                                                    String token) {
       return ResponseEntity.ok(usuarioService.atualizaTelefonePorID(id, telefoneDTO, token));
+   }
+
+   @GetMapping("/endereco/{cep}")
+   @Operation(summary = "Busca endereço por cepdo usuario ", description = "Busca endereço por cep")
+   @ApiResponse(responseCode = "200", description = "endereço encontrado com sucesso")
+   @ApiResponse(responseCode = "400", description = "CEP inválido ou não encontrado")
+   @ApiResponse(responseCode = "500", description = "Erro no servidor ")
+   public ResponseEntity<ViaCepDTOResponse> buscarEndereco(@PathVariable("cep") String cep) {
+      return ResponseEntity.ok(usuarioService.buscarEndereco(cep));
    }
 }

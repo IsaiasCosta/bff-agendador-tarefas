@@ -8,6 +8,7 @@ import com.isaiascosta.bffagendadortarefas.business.dto.in.UsuarioDTORequest;
 import com.isaiascosta.bffagendadortarefas.business.dto.out.EnderecoDTOResponse;
 import com.isaiascosta.bffagendadortarefas.business.dto.out.TelefoneDTOResponse;
 import com.isaiascosta.bffagendadortarefas.business.dto.out.UsuarioDTOResponse;
+import com.isaiascosta.bffagendadortarefas.business.dto.out.ViaCepDTOResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,6 +70,9 @@ public interface UsuarioClient {
    TelefoneDTOResponse atualizaTelefonePorID(@RequestBody TelefoneDTORequest telefoneDTO,
                                              @RequestParam("id") Long id,
                                              @RequestHeader("Authorization") String token);
+
+   @GetMapping("/endereco/{cep}")
+   ViaCepDTOResponse buscarEndereco(@PathVariable("cep") String cep);
 
 }
 
