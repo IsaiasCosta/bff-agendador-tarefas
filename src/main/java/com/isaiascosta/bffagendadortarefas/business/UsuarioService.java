@@ -58,10 +58,8 @@ public class UsuarioService {
    public EnderecoDTOResponse atualizarEnderecoPorId(Long idEndereco, EnderecoDTORequest enderecoDTO, String token) {
       return client.atualizarEnderecoPorId(enderecoDTO,idEndereco,token);
    }
-
    // Atualiza o telefone por ID
    public TelefoneDTOResponse atualizaTelefonePorID(Long idTelefone, TelefoneDTORequest telefoneDTO, String token) {
       return client.atualizaTelefonePorID(telefoneDTO,idTelefone,token);
-
    }
 }
